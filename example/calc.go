@@ -32,26 +32,26 @@ type s struct {
 	Age int
 }
 
-func(s s) Get()int {
+func (s s) Get() int {
 	return s.Age
 }
 
-func(s *s) Set(age int) {
+func (s *s) Set(age int) {
 	s.Age = age
 }
 
-func f(i i){
+func f(i i) {
 	i.Set(10)
 	fmt.Println(i.Get())
 }
 
-func f1(i i){
+func f1(i i) {
 	i.Get()
 	fmt.Println(i.Get())
 }
 
 func main() {
 	s := s{}
-	f(&s)  //4
-	f1(&s) //4
+	f(&s)  // 4
+	f1(&s) // 4
 }
