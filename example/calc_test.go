@@ -1,4 +1,4 @@
-package example
+package main
 
 import (
 	"bytes"
@@ -6,7 +6,17 @@ import (
 	"os"
 	"testing"
 	"text/template"
+
+	"github.com/fogleman/gg"
 )
+
+func Test123(t *testing.T) {
+	dc := gg.NewContext(1000, 1000)
+	dc.DrawCircle(500, 500, 400)
+	dc.SetRGB(0, 0, 0)
+	dc.Fill()
+	dc.SavePNG("out.png")
+}
 
 func TestAdd(t *testing.T) {
 	if ans := Add(1, 2); ans != 3 {
