@@ -10,6 +10,12 @@ import (
 	"github.com/fogleman/gg"
 )
 
+func TestRefer(t *testing.T) {
+	var sobj = s{}
+	sp := new(s)
+	fmt.Println(sobj, sp)
+}
+
 func Test123(t *testing.T) {
 	dc := gg.NewContext(1000, 1000)
 	dc.DrawCircle(500, 500, 400)

@@ -66,3 +66,31 @@ func input(base sorter) {
 	fmt.Println("res=", S)
 	testSorter(base, S)
 }
+
+type sorter1 interface {
+	sort([]item)
+	less(item, item) bool
+	exch([]item, int, int)
+}
+
+func show(items []item) {
+	fmt.Println("show item:", items)
+}
+
+func isSorted(sort sorter, items []item) bool {
+	for i := 1; i < len(items); i++ {
+		if sort.less(items[i], items[i-1]) {
+			return false
+		}
+	}
+	return true
+}
+
+type secondsort struct {
+	sorter
+}
+
+func testSorter2(base sorter, items []item) {
+	show(items)
+	isSorted(base, items)
+}
