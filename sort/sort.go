@@ -40,8 +40,7 @@ func (s *baseSort) exch(items []item, i int, j int) {
 }
 
 func (s *baseSort) less(a1 item, a2 item) bool {
-	fmt.Println("no imp less")
-	return false
+	return a1.item < a2.item
 }
 
 type firstsort struct {
@@ -70,7 +69,12 @@ func input(base sorter) {
 type sorter1 interface {
 	sort([]item)
 	less(item, item) bool
-	exch([]item, int, int)
+}
+
+func exch(items []item, i int, j int) {
+	tmp := items[j]
+	items[j] = items[i]
+	items[i] = tmp
 }
 
 func show(items []item) {
