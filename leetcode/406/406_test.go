@@ -1,4 +1,4 @@
-package l406
+package leetcode
 
 import (
 	"fmt"
