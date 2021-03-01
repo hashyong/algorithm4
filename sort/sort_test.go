@@ -2,16 +2,32 @@ package sort
 
 import "testing"
 
-func TestSort(t *testing.T) {
-	basesort := baseSort{}
-	firstsort := firstsort{}
-
-	items := make([]item, 10)
-	testSorter(&basesort, items)
-	testSorter(&firstsort, items)
+type item struct {
+	id int
 }
 
-func TestInput(t *testing.T) {
-	basesort := baseSort{}
-	input(&basesort)
+type items []item
+
+func (r items) Len() int {
+	return len(r)
+}
+
+func (r items) Swap(i, j int) {
+	r[i], r[j] = r[j], r[i]
+}
+
+func (r items) Less(i, j int) bool {
+	return r[i].id < r[j].id
+}
+
+var inputs = items{{74}, {59}, {238}, {1231313}, {-784}, {9845}}
+
+func TestBubbleSort(t *testing.T) {
+	in := inputs[0:]
+	BubbleSort(in)
+
+	if !IsSorted(in) {
+		t.Errorf("sorted %v", in)
+		t.Errorf("   got %v", inputs)
+	}
 }
