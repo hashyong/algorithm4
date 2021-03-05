@@ -24,3 +24,13 @@ func TestInsertSort(t *testing.T) {
 		t.Errorf("   got %v", base.Inputs)
 	}
 }
+
+func TestShellSort(t *testing.T) {
+	in := base.Inputs[0:]
+	ShellSort(in)
+
+	if !IsSorted(in) {
+		t.Errorf("sorted %v", in)
+		t.Errorf("   got %v", base.Inputs)
+	}
+}
