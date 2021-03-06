@@ -1,11 +1,43 @@
-# algorithm4
-algorithm4 basic code
+# 算法学习笔记
 
-1. support algorithm as simple gif
-2. golang
+> 基于
+> 1. Sedgewick巨著 《算法》（第四版）
 
-supported 
-1. sort
-    1. BubbleSort
-    2. InsertSort
-    3. ShellSort
+## 简介
+"学而时习之，不亦乐乎" 
+
+"温故而知新，可以为师矣"
+
+学习算法用论语的这两句话就可概括
+
+工作多年，数据结构和算法知识虽早已烂熟于心，但毕竟是基础，
+时常总结回顾总有新的收获。同时觉得知识体系过于零散，遂在这里将其汇总整理，以便时常翻阅
+
+备注：
+1. 示例代码用golang编写
+
+## 仓库结构
+- base
+  - 基础数据结构在此定义
+- sort
+  - 排序相关算法
+    - 初级
+      1. [选择排序](sort/sort.go)
+      2. [插入排序](sort/sort.go)
+      3. [希尔排序](sort/sort.go)
+    - 归并排序
+    - 快速排序
+    - 堆排序（优先队列）
+- find
+  - 查找相关算法
+- graph
+  - 图相关算法
+- string
+  - 字符串相关算法
+- search
+  - 搜索相关算法
+- leetcode
+  - 相关题解
+- doc 
+  - 相关资料&书籍
+    - 算法4 高清文字版
