@@ -54,3 +54,13 @@ func TestMergeBUSort(t *testing.T) {
 		t.Errorf("   got %v", base.Inputs)
 	}
 }
+
+func TestQuickSort(t *testing.T) {
+	in := base.Inputs[0:]
+	QuickSort(in)
+
+	if !IsSorted(in) {
+		t.Errorf("sorted %v", in)
+		t.Errorf("   got %v", base.Inputs)
+	}
+}

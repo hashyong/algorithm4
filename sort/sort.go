@@ -187,8 +187,65 @@ func merge(data ISort, aux ISort, lo, mid, hi int) {
 }
 
 // 快排
+func QuickSort(data ISort) Display {
+	var ret Display
+	ret.DisplayData = append(ret.DisplayData, data.Copy().(ISort))
+
+	quickSort(data, 0, data.Len()-1)
+	return ret
+}
+
+func quickSort(data ISort, lo int, hi int) {
+	if hi <= lo {
+		return
+	}
+
+	j := partition(data, lo, hi)
+	quickSort(data, lo, j-1)
+	quickSort(data, j+1, hi)
+
+}
+
+func partition(data ISort, lo int, hi int) int {
+	// 左右扫描指针
+	i := lo
+	j := hi + 1
+
+	for {
+		i++
+		for data.Less(i, lo) {
+			if i == hi {
+				break
+			}
+			i++
+		}
+
+		j--
+		for data.Less(lo, j) {
+			if j == lo {
+				break
+			}
+			j--
+		}
+
+		// 此时，data[i] 大于data lo， data j 小于data lo
+		if i >= j {
+			break
+		}
+		data.Swap(i, j)
+	}
+
+	data.Swap(lo, j)
+	return j
+}
 
 // 堆排序
+func HeapSort(data ISort) Display {
+	var ret Display
+	ret.DisplayData = append(ret.DisplayData, data.Copy().(ISort))
+
+	return ret
+}
 
 // IsSorted reports whether data is sorted.
 func IsSorted(data ISort) bool {
@@ -217,6 +274,10 @@ func Sort(name string) {
 		Show(MergeSort(in))
 	case "mergeBU":
 		Show(MergeBUSort(in))
+	case "quick":
+		Show(QuickSort(in))
+	case "heap":
+		Show(HeapSort(in))
 	}
 	fmt.Println(name, " end")
 }

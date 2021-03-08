@@ -29,6 +29,9 @@
       1. [自顶向下](sort/sort.go)
       2. [自下而上](sort/sort.go)
     - 快速排序
+      1. [标准二向切分](sort/sort.go)
+      2. [三向切分](sort/sort.go)
+          - 对于处理重复元素， 效果较好
     - 堆排序（优先队列）
 - [find](find)
   - 查找相关算法
