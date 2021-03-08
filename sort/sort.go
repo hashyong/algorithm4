@@ -111,7 +111,28 @@ func ShellSort(data ISort) Display {
 	return ret
 }
 
+func Min(x, y int) int {
+	if x <= y {
+		return x
+	}
+	return y
+}
+
 // 归并排序
+// 自下而上
+func MergeBUSort(data ISort) Display {
+	var ret Display
+	ret.DisplayData = append(ret.DisplayData, data.Copy().(ISort))
+
+	aux := data.Copy().(ISort)
+	for sz := 1; sz < data.Len(); sz = sz + sz {
+		for lo := 0; lo < data.Len()-sz; lo += sz + sz {
+			merge(data, aux, lo, lo+sz-1, Min(lo+sz+sz-1, data.Len()-1))
+		}
+	}
+	return ret
+}
+
 // 自顶向下
 func MergeSort(data ISort) Display {
 	var ret Display
