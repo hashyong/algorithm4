@@ -24,4 +24,12 @@ func (r Items) Copy() interface{} {
 	return tmp
 }
 
+func (r Items) Get(idx int) interface{} {
+	return r[idx]
+}
+
+func (r Items) Set(idx int, value interface{}) {
+	r[idx] = value.(Item)
+}
+
 var Inputs = Items{{74}, {59}, {23}, {12}, {-784}, {9845}}

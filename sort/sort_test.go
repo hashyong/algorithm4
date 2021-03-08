@@ -34,3 +34,13 @@ func TestShellSort(t *testing.T) {
 		t.Errorf("   got %v", base.Inputs)
 	}
 }
+
+func TestMergeSort(t *testing.T) {
+	in := base.Inputs[0:]
+	MergeSort(in)
+
+	if !IsSorted(in) {
+		t.Errorf("sorted %v", in)
+		t.Errorf("   got %v", base.Inputs)
+	}
+}

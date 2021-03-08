@@ -6,4 +6,5 @@ func main() {
 	msort.Sort("insert")
 	msort.Sort("bubble")
 	msort.Sort("shell")
+	msort.Sort("merge")
 }

@@ -3,6 +3,7 @@ package sort
 import (
 	"algorithm4/base"
 	"fmt"
+	_ "sort"
 	"time"
 )
 
@@ -12,7 +13,11 @@ type ISort interface {
 	Less(i, j int) bool
 	Swap(i, j int)
 
+	// 返回当前数据状态
 	Copy() interface{}
+	// 归并排序使用, 后边这里再想想咋个优化，因为不需要临时空间的排序都不需要这个
+	Set(int, interface{})
+	Get(int) interface{}
 }
 
 type Display struct {
@@ -107,10 +112,62 @@ func ShellSort(data ISort) Display {
 }
 
 // 归并排序
+// 自顶向下
+func MergeSort(data ISort) Display {
+	var ret Display
+	ret.DisplayData = append(ret.DisplayData, data.Copy().(ISort))
+
+	sortMerge(data, data.Copy().(ISort), 0, data.Len()-1)
+	return ret
+}
+
+func sortMerge(data ISort, aux ISort, lo, hi int) {
+	if hi <= lo {
+		return
+	}
+
+	mid := lo + (hi-lo)/2
+	sortMerge(data, aux, lo, mid)
+	sortMerge(data, aux, mid+1, hi)
+	merge(data, aux, lo, mid, hi)
+}
+
+// 辅助方法 merge
+func merge(data ISort, aux ISort, lo, mid, hi int) {
+	i := lo
+	j := mid + 1
+
+	aux = data.Copy().(ISort)
+
+	// i     j
+	// 3 4 5 1 9 10
+	// 1
+	for k := lo; k <= hi; k++ {
+		if i > mid {
+			data.Set(k, aux.Get(j))
+			j++
+			continue
+		}
+
+		if j > hi {
+			data.Set(k, aux.Get(i))
+			i++
+			continue
+		}
+
+		if aux.Less(j, i) {
+			data.Set(k, aux.Get(j))
+			j++
+		} else {
+			data.Set(k, aux.Get(i))
+			i++
+		}
+	}
+}
 
 // 快排
 
-// 队排序
+// 堆排序
 
 // IsSorted reports whether data is sorted.
 func IsSorted(data ISort) bool {
@@ -135,7 +192,8 @@ func Sort(name string) {
 		Show(BubbleSort(in))
 	case "shell":
 		Show(ShellSort(in))
-	default:
+	case "merge":
+		Show(MergeSort(in))
 	}
 	fmt.Println(name, " end")
 }
