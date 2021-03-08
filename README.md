@@ -26,6 +26,8 @@
       2. [插入排序](sort/sort.go)
       3. [希尔排序](sort/sort.go)
     - 归并排序
+      1. [自顶向下](sort/sort.go)
+      2. [自下而上](sort/sort.go)
     - 快速排序
     - 堆排序（优先队列）
 - [find](find)

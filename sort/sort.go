@@ -215,6 +215,8 @@ func Sort(name string) {
 		Show(ShellSort(in))
 	case "merge":
 		Show(MergeSort(in))
+	case "mergeBU":
+		Show(MergeBUSort(in))
 	}
 	fmt.Println(name, " end")
 }
