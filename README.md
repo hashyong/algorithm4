@@ -17,9 +17,9 @@
 1. 示例代码用golang编写
 
 ## 仓库结构
-- base
+- [base](base)
   - 基础数据结构在此定义
-- sort
+- [sort](sort)
   - 排序相关算法
     - 初级
       1. [选择排序](sort/sort.go)
@@ -28,16 +28,16 @@
     - 归并排序
     - 快速排序
     - 堆排序（优先队列）
-- find
+- [find](find)
   - 查找相关算法
-- graph
+- [graph](graph)
   - 图相关算法
-- string
+- [string](string)
   - 字符串相关算法
-- search
+- [search](search)
   - 搜索相关算法
-- leetcode
+- [leetcode](leetcode)
   - 相关题解
-- doc 
+- [doc](doc)
   - 相关资料&书籍
-    - 算法4 高清文字版
+    - [算法4 高清文字版](doc/算法（第4版）文字版.pdf)
