@@ -2,6 +2,7 @@ package sort
 
 import (
 	"algorithm4/base"
+	_ "container/heap"
 	"fmt"
 	_ "sort"
 	"time"
@@ -274,6 +275,8 @@ func partition(data ISort, lo int, hi int) int {
 }
 
 // 堆排序
+// go 标准库已经有实现，可以参考下
+// container/heap/example_pq_test.go
 func HeapSort(data ISort) Display {
 	var ret Display
 	ret.DisplayData = append(ret.DisplayData, data.Copy().(ISort))
