@@ -186,13 +186,48 @@ func merge(data ISort, aux ISort, lo, mid, hi int) {
 	}
 }
 
-// 快排
+// 快排 双向切分
 func QuickSort(data ISort) Display {
 	var ret Display
 	ret.DisplayData = append(ret.DisplayData, data.Copy().(ISort))
 
 	quickSort(data, 0, data.Len()-1)
 	return ret
+}
+
+// 快排 三向切分
+func Quick3WaySort(data ISort) Display {
+	var ret Display
+	ret.DisplayData = append(ret.DisplayData, data.Copy().(ISort))
+
+	quickSort(data, 0, data.Len()-1)
+	return ret
+}
+
+// 子数组， 依赖 compare方法，能返回三个状态，大于，小于，或者等于, 目前未实现, 后续再实现
+//Dijkstra 的解法如“三向切分的快速排序”中极为简洁的切分代码所示。
+//它从左到右遍历数组 一次，维护一个指针 lt 使得 a[lo..lt-1] 中的元素都小于 v，
+//一个指针 gt 使得 a[gt+1..hi] 中 的元素都大于 v，
+//一个指针 i 使得 a[lt..i-1] 中的元素都等于 v，a[i..gt] 中的元素都还未确定，
+//j如图 2.3.4 所示。一开始 i 和 lo 相等，我们使用 Comparable 接口(而非 less())对 a[i] 进行三 向比较来直接处理以下情况:
+// a[i]小于v，将a[lt]和a[i]交换，将lt和i加一;
+// a[i] 大于 v，将 a[gt] 和 a[i] 交换，将 gt 减一;
+// a[i]等于v，将i加一。
+//这些操作都会保证数组元素不变且缩小 gt-i 的值(这样循环才会结束)。另外，除非和切分
+//元素相等，其他元素都会被交换。
+func quick3Sort(data ISort, lo, hi int) {
+	if hi <= lo {
+		return
+	}
+
+	// lt := lo
+	i := lo + 1
+	gt := hi
+
+	for i <= gt {
+
+	}
+
 }
 
 func quickSort(data ISort, lo int, hi int) {
@@ -203,7 +238,6 @@ func quickSort(data ISort, lo int, hi int) {
 	j := partition(data, lo, hi)
 	quickSort(data, lo, j-1)
 	quickSort(data, j+1, hi)
-
 }
 
 func partition(data ISort, lo int, hi int) int {
