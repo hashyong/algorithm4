@@ -11,6 +11,7 @@ func main() {
 	sortList = append(sortList, "shell")
 	sortList = append(sortList, "merge")
 	sortList = append(sortList, "mergeBU")
+	sortList = append(sortList, "quick")
 	for _, s := range sortList {
 		msort.Sort(s)
 	}
