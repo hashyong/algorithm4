@@ -40,6 +40,7 @@
       - 标准库实现非常优雅，可以直接参考[PQ](https://golang.org/pkg/container/heap/)
       - [删除指定元素原理](http://www.mathcs.emory.edu/~cheung/Courses/171/Syllabus/9-BinTree/heap-delete.html)
       - [堆排序改进：先下沉后上浮](https://zhuanlan.zhihu.com/p/28593993)
+    - TODO：分析golang sort 源码
 - [find](find)
   - 查找相关算法
 - [graph](graph)
