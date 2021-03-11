@@ -34,7 +34,7 @@ func (c *SeqSearchST) Get(key interface{}) interface{} {
 			return node.Data
 		}
 
-		node = (*node).Prev
+		node = (*node).Next
 	}
 
 	return nil
