@@ -26,15 +26,15 @@
 - [sort](sort)
   - 排序相关算法
     - 初级
-      1. [选择排序](sort/sort.go)
-      2. [插入排序](sort/sort.go)
-      3. [希尔排序](sort/sort.go)
+      1. [选择排序](sort)
+      2. [插入排序](sort)
+      3. [希尔排序](sort)
     - 归并排序
-      1. [自顶向下](sort/sort.go)
-      2. [自下而上](sort/sort.go)
+      1. [自顶向下](sort)
+      2. [自下而上](sort)
     - 快速排序
-      1. [标准二向切分](sort/sort.go)
-      2. [三向切分](sort/sort.go)
+      1. [标准二向切分](sort)
+      2. [三向切分](sort)
           - 对于处理重复元素， 效果较好
     - 堆排序（优先队列）
       - 标准库实现非常优雅，可以直接参考[PQ](https://golang.org/pkg/container/heap/)
