@@ -43,6 +43,7 @@
     - TODO：分析golang sort 源码
 - [find](find)
   - 查找相关算法
+    - [无序链表](search)
 - [graph](graph)
   - 图相关算法
 - [string](string)
