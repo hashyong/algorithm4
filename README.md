@@ -44,6 +44,7 @@
 - [find](find)
   - 查找相关算法
     - [无序链表](search)
+    - [基于有序数组的二叉查找版本](search)
 - [graph](graph)
   - 图相关算法
 - [string](string)
