@@ -1,15 +1,20 @@
 package search
 
+// 为了key之间可以比较
+type BSSTI interface {
+	Compare(bssti BSSTI) int
+}
+
 // 二分查找， 基于有序数组
 type BinarySearchST struct {
-	keys   []interface{}
+	keys   []BSSTI
 	values []interface{}
 	N      int
 }
 
 func InitBinarySearchST(capcity int) *BinarySearchST {
 	return &BinarySearchST{
-		keys:   make([]interface{}, capcity, capcity),
+		keys:   make([]BSSTI, capcity, capcity),
 		values: make([]interface{}, capcity, capcity),
 		N:      0,
 	}
@@ -24,24 +29,43 @@ func (b *BinarySearchST) IsEmpty() bool {
 }
 
 // 返回小于key的数量
-func (b *BinarySearchST) rank(key interface{}) int {
-	return 0
+// 基于迭代的二分查找
+func (b *BinarySearchST) rank(key BSSTI) int {
+	lo := 0
+	hi := b.N - 1
+
+	for lo <= hi {
+		mid := lo + (hi-lo)/2
+		res := key.Compare(b.keys[mid])
+		if res == 0 {
+			return mid
+		}
+
+		if res < 0 {
+			hi = mid - 1
+		}
+
+		if res > 0 {
+			lo = mid + 1
+		}
+	}
+	return lo
 }
 
-func (b *BinarySearchST) Get(key interface{}) interface{} {
+func (b *BinarySearchST) Get(key BSSTI) interface{} {
 	if b.IsEmpty() {
 		return nil
 	}
 
 	i := b.rank(key)
-	if i < b.N && key == b.keys[i] {
+	if i < b.N && key.Compare(b.keys[i]) == 0 {
 		return b.values[i]
 	}
 
 	return nil
 }
 
-func (b *BinarySearchST) Set(key interface{}, value interface{}) {
+func (b *BinarySearchST) Set(key BSSTI, value interface{}) {
 	i := b.rank(key)
 
 	// 如果已经存在则更新
@@ -61,7 +85,7 @@ func (b *BinarySearchST) Set(key interface{}, value interface{}) {
 	b.N++
 }
 
-func (b *BinarySearchST) Del(key interface{}) {
+func (b *BinarySearchST) Del(key BSSTI) {
 	if b.IsEmpty() {
 		return
 	}
@@ -78,4 +102,16 @@ func (b *BinarySearchST) Del(key interface{}) {
 	}
 
 	// 如果不存在直接返回即可， 无用处理
+}
+
+func (b *BinarySearchST) Min() interface{} {
+	return b.keys[0]
+}
+
+func (b *BinarySearchST) Max() interface{} {
+	return b.keys[b.N-1]
+}
+
+func (b *BinarySearchST) Select(k int) interface{} {
+	return b.keys[k]
 }
