@@ -5,3 +5,6 @@
 
 ## 基于有序数组的二叉查找版本
 - [BinarySearchST](binary_search_st.go)
+
+## BST
+- [BST](binary_search_tree.go)

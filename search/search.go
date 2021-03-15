@@ -1,21 +1,23 @@
 package search
 
-type Node struct {
-	Key  interface{}
+import "strings"
+
+type LinkNode struct {
+	Key  BSSTI
 	Data interface{}
-	Next *Node
-	Prev *Node
+	Next *LinkNode
+	Prev *LinkNode
 }
 
 // 无序链表
 type SeqSearchST struct {
-	Head *Node
-	Tail *Node
+	Head *LinkNode
+	Tail *LinkNode
 	size int
 }
 
-func InitNode(key interface{}, data interface{}) *SeqSearchST {
-	res := &Node{
+func InitNode(key BSSTI, data interface{}) *SeqSearchST {
+	res := &LinkNode{
 		Key:  key,
 		Data: data,
 		Next: nil,
@@ -45,8 +47,8 @@ func (c *SeqSearchST) Get(key interface{}) interface{} {
 }
 
 // 无序链表，直接将元素设置到链表结尾即可
-func (c *SeqSearchST) Set(key interface{}, value interface{}) {
-	node := &Node{
+func (c *SeqSearchST) Set(key BSSTI, value interface{}) {
+	node := &LinkNode{
 		Key:  key,
 		Data: value,
 		Next: nil,
@@ -79,3 +81,11 @@ func (c *SeqSearchST) Del(key interface{}) {
 
 // 不支持范围查找, 原始链表无序
 // 要支持，可以先排序 之后再返回某个范围的值
+
+type Key struct {
+	k string
+}
+
+func (i *Key) Compare(j BSSTI) int {
+	return strings.Compare(i.k, j.(*Key).k)
+}
