@@ -59,6 +59,104 @@ func (b *BST) Rank(key BSSTI) int {
 	return rank(b.Root, key)
 }
 
+// 删除最小键
+func (b *BST) DelMin() {
+	b.Root = delMin(b.Root)
+}
+
+// 删除最大键
+func (b *BST) DelMax() {
+	b.Root = delMax(b.Root)
+}
+
+// 删除指定的key
+func (b *BST) Del(key BSSTI) {
+	b.Root = del(b.Root, key)
+}
+
+// 范围查找， 支持查找指定范围的key
+func (b *BST) Range(lo BSSTI, hi BSSTI) []BSSTI {
+	var queue []BSSTI
+	range1(b.Root, &queue, lo, hi)
+	return queue
+}
+
+func range1(node *TreeNode, queue *[]BSSTI, lo BSSTI, hi BSSTI) {
+	if node == nil {
+		return
+	}
+
+	cmpLo := lo.Compare(node.Key)
+	cmpHi := hi.Compare(node.Key)
+	// lo < node.key
+	if cmpLo < 0 {
+		range1(node.Left, queue, lo, hi)
+	}
+
+	// 处理当前节点， 左子树已经处理完成
+	if cmpLo <= 0 && cmpHi >= 0 {
+		*queue = append(*queue, node.Key)
+	}
+
+	if cmpHi > 0 {
+		range1(node.Right, queue, lo, hi)
+	}
+}
+
+func del(node *TreeNode, key BSSTI) *TreeNode {
+	if node == nil {
+		return nil
+	}
+
+	cmp := key.Compare(node.Key)
+	// key < node.key
+	if cmp < 0 {
+		node.Left = del(node.Left, key)
+	} else if cmp > 0 {
+		node.Right = del(node.Right, key)
+	} else {
+		// 假如右子树为空， 则返回左子树，相当于删除当前节点
+		if node.Right == nil {
+			return node.Left
+		}
+
+		if node.Left == nil {
+			return node.Right
+		}
+
+		t := node
+		node = min(t.Right)
+		node.Right = delMin(t.Right)
+		node.Left = t.Left
+	}
+
+	node.N = size(node.Left) + size(node.Right) + 1
+	return node
+}
+
+func delMax(node *TreeNode) *TreeNode {
+	if node.Right == nil {
+		return node.Left
+	}
+
+	node.Right = delMax(node.Right)
+	node.N = size(node.Left) + size(node.Right) + 1
+	return node
+}
+
+func delMin(node *TreeNode) *TreeNode {
+	// 假如左子树为空，则当前节点为待删除元素
+	// 将当前节点父节点指向当前节点右子树即可
+	// 当前节点无人指向会被自动个释放
+	if node.Left == nil {
+		return node.Right
+	}
+
+	node.Left = delMin(node.Left)
+	node.N = size(node.Left) + size(node.Right) + 1
+	return node
+}
+
 func rank(node *TreeNode, key BSSTI) int {
 	if node == nil {
 		return 0

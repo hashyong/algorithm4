@@ -8,3 +8,5 @@
 
 ## BST
 - [BST](binary_search_tree.go)
+  - 支持以下接口 
+    - get, put, size, range, select, floor, delmin, delmax, del
