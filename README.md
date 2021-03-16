@@ -51,7 +51,7 @@
       - [删除指定元素原理](http://www.mathcs.emory.edu/~cheung/Courses/171/Syllabus/9-BinTree/heap-delete.html)
       - [堆排序改进：先下沉后上浮](https://zhuanlan.zhihu.com/p/28593993)
     - TODO：分析golang sort 源码
-- [find](find)
+- [find](search)
   - 查找相关算法
     - [无序链表](search)
     - [基于有序数组的二叉查找版本](search)
