@@ -72,7 +72,7 @@
             - 二叉查找树中简洁高效的查找方法
             - 2-3 树中高效 的平衡插入算法
         - 图解系列
-          - [图解红黑树插入](search)
+          - [图解红黑树插入](https://github.com/hashyong/drawio/blob/main/rbtree.jpg)
       - [正常红黑树](search)
     - [散列表](search)
       - [基于拉链法散列表](search)
