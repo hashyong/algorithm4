@@ -13,3 +13,4 @@
 
 ## 左倾红黑树  
 - [LeftRedBlackTree](left_rb_tree.go)
+- ![图解插入](https://github.com/hashyong/drawio/blob/main/rbtree.jpg)

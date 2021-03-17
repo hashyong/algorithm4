@@ -6,6 +6,8 @@ type TreeNode struct {
 	Left  *TreeNode
 	Right *TreeNode
 	N     int
+	// 只有红黑树需要
+	color bool
 }
 
 type BST struct {
