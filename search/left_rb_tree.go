@@ -5,6 +5,10 @@ const (
 	Black = false
 )
 
+type RBTree struct {
+	Root *TreeNode
+}
+
 func isRed(node *TreeNode) bool {
 	if node == nil {
 		return false
@@ -45,4 +49,47 @@ func flipColor(node *TreeNode) {
 	node.color = Red
 	node.Left.color = Black
 	node.Right.color = Black
+}
+
+func (r *RBTree) Put(key BSSTI, value interface{}) {
+	r.Root = rb_put(r.Root, key, value)
+	r.Root.color = Black
+}
+
+func rb_put(node *TreeNode, key BSSTI, value interface{}) *TreeNode {
+	if node == nil {
+		return &TreeNode{
+			Key:   key,
+			Data:  value,
+			Left:  nil,
+			Right: nil,
+			N:     1,
+			color: Red,
+		}
+	}
+
+	cmp := key.Compare(node.Key)
+	// key < node.key
+	if cmp < 0 {
+		node.Left = put(node.Left, key, value)
+	} else if cmp > 0 {
+		node.Right = put(node.Right, key, value)
+	} else {
+		node.Data = value
+	}
+
+	if isRed(node.Right) && !isRed(node.Left) {
+		node = rotateLeft(node)
+	}
+
+	if isRed(node.Left) && isRed(node.Left.Left) {
+		node = rotateRight(node)
+	}
+
+	if isRed(node.Left) && isRed(node.Right) {
+		flipColor(node)
+	}
+
+	node.N = size(node.Left) + size(node.Right) + 1
+	return node
 }
