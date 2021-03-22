@@ -56,6 +56,19 @@ func (r *RBTree) Put(key BSSTI, value interface{}) {
 	r.Root.color = Black
 }
 
+func (r *RBTree) DelMin() {
+	// 递归删除
+	// 先找到最小键
+	// 直到左子树为空
+	// 如果当前节点为3节点， 则直接删除即可
+	// 如果当前节点为2节点，看下兄弟节点是否为3节点，是的话可以借一个键过来
+	// 如果当前节点为2节点，兄弟节点为2节点, 父节点为3节点， 那就从父节点借一个过来, 合并借的节点和兄弟节点
+	// 如果当前节点为2节点，兄弟节点为2节点, 父节点为2节点， 那就从父节点借一个过来, 合并借的节点和兄弟节点
+	// 		此时若父节点被掏空了， 继续当前借节点逻辑, 补充当前空节点
+	// 		此时若根节点空了， 则树的高度下降一层
+
+}
+
 func rb_put(node *TreeNode, key BSSTI, value interface{}) *TreeNode {
 	if node == nil {
 		return &TreeNode{
@@ -93,3 +106,5 @@ func rb_put(node *TreeNode, key BSSTI, value interface{}) *TreeNode {
 	node.N = size(node.Left) + size(node.Right) + 1
 	return node
 }
+
+// rb del code
