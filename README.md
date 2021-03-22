@@ -59,6 +59,7 @@
     - [二叉查找树(BST)](search)
     - [平衡查找树](search)
       - [伸展树](search)
+      - [B-树](search)
       - [2-3查找树](search)
         - 树从下向上生长, 保持平衡关键
       - [左倾红黑树](search)
