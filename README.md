@@ -7,6 +7,7 @@
 > 4. DDIA
 > 5. 重构
 > 6. golang/cpp
+> 7. 数据结构与算法(邓俊辉版本)
 
 ## 简介
 "学而时习之，不亦说乎?有朋自远方来,不亦乐乎?人不知而不愠,不亦君子乎?" 
@@ -57,6 +58,7 @@
     - [基于有序数组的二叉查找版本](search)
     - [二叉查找树(BST)](search)
     - [平衡查找树](search)
+      - [伸展树](search)
       - [2-3查找树](search)
         - 树从下向上生长, 保持平衡关键
       - [左倾红黑树](search)
@@ -77,6 +79,7 @@
     - [散列表](search)
       - [基于拉链法散列表](search)
       - [基于线性探测法散列表](search)
+    - [跳跃链表](search)
 - [graph](graph)
   - 图相关算法
     - [无向图](graph)
@@ -113,8 +116,6 @@
       - [RK](string)
     - [正则表达式](string)
     - [字符串压缩](string)
-- [search](search)
-  - 搜索相关算法
 - [leetcode](leetcode)
   - 相关题解
 - [algorithm_mianshi](algorithm_mianshi)
