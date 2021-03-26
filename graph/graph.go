@@ -1,6 +1,9 @@
 package graph
 
-import "fmt"
+import (
+	"container/list"
+	"fmt"
+)
 
 type Interface interface {
 	// 创建一个含有V个顶点但无边的图
@@ -15,6 +18,15 @@ type Interface interface {
 	AddEdge(int, int)
 	// 返回和v相邻所有顶点
 	Adj(int) []int
+}
+
+type Graph struct {
+	// 顶点数目
+	V int
+	// 边的数目
+	E int
+	// 邻接表
+	adj []list.List
 }
 
 // 计算v的度数
