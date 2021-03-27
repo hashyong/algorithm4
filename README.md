@@ -33,6 +33,10 @@
 2. go相关工具在这里也记录下，舒服的一批
   - json2go https://mholt.github.io/json-to-go/
   - fast parse json https://github.com/tidwall/gjson
+  - cli 工具
+    - https://github.com/spf13/cobra
+    - https://github.com/urfave/cli
+    - https://golang.org/pkg/flag/
 
 ## 仓库结构
 - [compiler](compiler)
