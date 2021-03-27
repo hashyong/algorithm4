@@ -32,6 +32,7 @@
 1. 示例代码用golang编写
 2. go相关工具在这里也记录下，舒服的一批
   - json2go https://mholt.github.io/json-to-go/
+  - fast parse json https://github.com/tidwall/gjson
 
 ## 仓库结构
 - [compiler](compiler)
