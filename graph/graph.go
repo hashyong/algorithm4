@@ -16,22 +16,52 @@ type Interface interface {
 	E() int
 	// 添加边
 	AddEdge(int, int)
-	// 返回和v相邻所有顶点
-	Adj(int) []int
+	// 返回和v相邻所有顶点, 返回链表的起点
+	Adj(int) list.List
 }
 
 type Graph struct {
 	// 顶点数目
-	V int
+	Ver int
 	// 边的数目
-	E int
+	Edge int
 	// 邻接表
+	// 目前是使用list，也可以使用set or st
 	adj []list.List
+}
+
+func (g *Graph) V() int {
+	return g.Ver
+}
+
+func (g *Graph) E() int {
+	return g.Edge
+}
+
+func (g *Graph) AddEdge(v int, w int) {
+	g.adj[v].PushBack(w)
+	g.adj[w].PushBack(v)
+}
+
+func (g *Graph) Adj(i int) list.List {
+	return g.adj[i]
+}
+
+func (g *Graph) Graph(v int) Interface {
+	g.Ver = v
+	g.Edge = 0
+	g.adj = make([]list.List, v)
+	return g
+}
+
+func (g *Graph) GraphIn(in interface{}) Interface {
+	return g
 }
 
 // 计算v的度数
 func degree(node Interface, v int) int {
-	return len(node.Adj(v))
+	adj := node.Adj(v)
+	return adj.Len()
 }
 
 // 计算所有顶点的最大度数
@@ -45,7 +75,7 @@ func maxDegree(node Interface) int {
 	return max
 }
 
-//计算所有顶点的平均度数
+// 计算所有顶点的平均度数
 func avgDegree(node Interface) float32 {
 	return float32(2.0 * node.E() / node.V())
 }
@@ -54,13 +84,13 @@ func avgDegree(node Interface) float32 {
 func numberOfSelfLoops(node Interface) int {
 	count := 0
 	for v := 0; v < node.V(); v++ {
-		for w := range node.Adj(v) {
-			if v == w {
+		lis := node.Adj(v)
+		for i := lis.Front(); i != nil; i = i.Next() {
+			if v == i.Value {
 				count++
 			}
 		}
 	}
-
 	// 每条边都被标记过2次，所以要/2
 	return count / 2
 }
@@ -71,8 +101,10 @@ func toString(node Interface) string {
 	for v := 0; v < node.V(); v++ {
 		s1 := fmt.Sprintf("%d: ", v)
 		s += s1
-		for w := range node.Adj(v) {
-			s2 := fmt.Sprintf("%d ", w)
+
+		lis := node.Adj(v)
+		for w := lis.Front(); w != nil; w = w.Next() {
+			s2 := fmt.Sprintf("%d ", w.Value)
 			s += s2
 		}
 		s += "\n"
