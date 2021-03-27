@@ -6,9 +6,16 @@ import (
 )
 
 type Interface interface {
+	// 下边两个方法是全局的比较好
 	// 创建一个含有V个顶点但无边的图
 	Graph(int) Interface
 	// 从标准输入读入一幅图
+	// 数据格式
+	// V(顶点数量)
+	// E(边的数量)
+	// 1 2
+	// 3 4
+	// ...
 	GraphIn(interface{}) Interface
 	// 顶点数
 	V() int
@@ -30,6 +37,11 @@ type Graph struct {
 	adj []list.List
 }
 
+func New() Interface {
+	g := &Graph{}
+	return g
+}
+
 func (g *Graph) V() int {
 	return g.Ver
 }
@@ -38,9 +50,26 @@ func (g *Graph) E() int {
 	return g.Edge
 }
 
+func listSearch(v *list.List, value int) bool {
+	for i := v.Front(); i != nil; i = i.Next() {
+		if i.Value == value {
+			return true
+		}
+	}
+	return false
+}
+
 func (g *Graph) AddEdge(v int, w int) {
-	g.adj[v].PushBack(w)
-	g.adj[w].PushBack(v)
+	lis := &g.adj[v]
+	if !listSearch(lis, w) {
+		lis.PushBack(w)
+		g.Edge++
+
+	}
+	lis = &g.adj[w]
+	if !listSearch(lis, v) {
+		lis.PushBack(v)
+	}
 }
 
 func (g *Graph) Adj(i int) list.List {
@@ -97,7 +126,7 @@ func numberOfSelfLoops(node Interface) int {
 
 // 字符串表示
 func toString(node Interface) string {
-	s := fmt.Sprintf("%d vertices, %d edges", node.V(), node.E())
+	s := fmt.Sprintf("%d vertices, %d edges \n", node.V(), node.E())
 	for v := 0; v < node.V(); v++ {
 		s1 := fmt.Sprintf("%d: ", v)
 		s += s1
