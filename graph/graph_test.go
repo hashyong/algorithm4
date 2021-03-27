@@ -13,6 +13,11 @@ func TestGraph_Graph(t *testing.T) {
 	fmt.Println(toString(g))
 }
 
+func TestGraph_GraphIn(t *testing.T) {
+	g := New().GraphIn("test.json")
+	fmt.Println(toString(g))
+}
+
 func TestGraph_E(t *testing.T) {
 	g := New().Graph(10)
 	assert.Equal(t, g.E(), 0)
