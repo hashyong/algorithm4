@@ -44,6 +44,8 @@
 3. godoc -http=":12345"
 4. http://localhost:12345/pkg/algorithm4
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/hashyong/algorithm4.svg)](https://pkg.go.dev/github.com/hashyong/algorithm4)
+
 ## 仓库结构
 - [compiler](compiler)
   - 为什么写这个？
