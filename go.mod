@@ -1,4 +1,4 @@
-module github.com/hashyong/algorithm
+module github.com/hashyong/algorithm4
 
 go 1.15
 
