@@ -37,6 +37,12 @@
     - https://github.com/spf13/cobra
     - https://github.com/urfave/cli
     - https://golang.org/pkg/flag/
+  
+## 使用
+1. git clone https://github.com/hashyong/algorithm4.git
+2. go get -v  golang.org/x/tools/cmd/godoc
+3. godoc -http=":12345"
+4. http://localhost:12345/pkg/algorithm4
 
 ## 仓库结构
 - [compiler](compiler)
