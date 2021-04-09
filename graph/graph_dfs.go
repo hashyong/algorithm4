@@ -149,3 +149,7 @@ func (c *ConnectedComponent) CCCount() int {
 }
 
 // 使用深度优先搜索判断一课树自环的个数
+
+// 使用深度优先搜索判断是否为二分图
+
+//
