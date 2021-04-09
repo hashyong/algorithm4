@@ -32,5 +32,7 @@ func TestConnectedComponent_CC(t *testing.T) {
 	g := New().GraphIn("tinyCG.json")
 	g1 := NewCC()
 	g1.CC(g)
+	fmt.Println(g1.getID(1))
+	fmt.Println(g1.connected(1, 2))
 	assert.Equal(t, g1.CCCount(), 1)
 }

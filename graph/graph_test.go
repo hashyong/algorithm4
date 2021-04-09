@@ -42,5 +42,9 @@ func TestGraph_AddEdge(t *testing.T) {
 	g.AddEdge(1, 2)
 	fmt.Println(toString(g))
 
+	fmt.Println("maxDegree:", maxDegree(g))
+	fmt.Println("avgDegree:", avgDegree(g))
+	fmt.Println("numberOfSelfLoops:", numberOfSelfLoops(g))
+	fmt.Println("maxDegree", maxDegree(g))
 	fmt.Println("maxDegree", maxDegree(g))
 }

@@ -28,10 +28,10 @@ func (b *BreadthFirstPaths) bfp(g Interface, s int) {
 	q.Enqueue(s)
 
 	for q.Len() != 0 {
-		v := q.Dequeue().(int)
+		v, _ := q.Dequeue().(int)
 		lis := g.Adj(v)
 		for w := lis.Front(); w != nil; w = w.Next() {
-			idx := w.Value.(int)
+			idx, _ := w.Value.(int)
 			if !b.marked[idx] {
 				b.edgeTo[idx] = v
 				b.marked[idx] = true

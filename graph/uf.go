@@ -18,6 +18,10 @@ type UF struct {
 	sz []int
 }
 
+func NewUF() *UF {
+	return &UF{}
+}
+
 func (u *UF) init(n int) {
 	u.count = n
 	u.id = make([]int, n)
@@ -82,6 +86,7 @@ func (u *UF) Connected(p, q int) bool {
 }
 
 func (u *UF) Union(p, q int) {
+	fmt.Println(p, q)
 }
 
 func (u *UF) Find(p int) int {
@@ -109,7 +114,7 @@ func (u *UF) QFUnion(p, q int) {
 	u.count--
 }
 
-// 返回对应根节点
+// QUSubFind 返回对应根节点
 func (u UF) QUSubFind(p int) int {
 	for p != u.id[p] {
 		p = u.id[p]
