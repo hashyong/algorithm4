@@ -8,10 +8,10 @@ import (
 )
 
 type Interface interface {
-	// 下边两个方法是全局的比较好
+	// Graph 下边两个方法是全局的比较好
 	// 创建一个含有V个顶点但无边的图
 	Graph(int) Interface
-	// 从标准输入读入一幅图
+	// GraphIn 从标准输入读入一幅图
 	// 数据格式
 	// V(顶点数量)
 	// E(边的数量)
@@ -19,13 +19,13 @@ type Interface interface {
 	// 3 4
 	// ...
 	GraphIn(interface{}) Interface
-	// 顶点数
+	// V 顶点数
 	V() int
-	// 边数
+	// E 边数
 	E() int
-	// 添加边
+	// AddEdge 添加边
 	AddEdge(int, int)
-	// 返回和v相邻所有顶点, 返回链表的起点
+	// Adj 返回和v相邻所有顶点, 返回链表的起点
 	Adj(int) list.List
 }
 
