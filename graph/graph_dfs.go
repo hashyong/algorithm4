@@ -8,7 +8,7 @@ import (
 	_ "github.com/golang-collections/collections"
 )
 
-// 深度优先搜索
+// DepthFirstSearch 深度优先搜索
 type DepthFirstSearch struct {
 	marked []bool
 	count  int
@@ -43,7 +43,7 @@ func (d *DepthFirstSearch) Count() int {
 	return d.count
 }
 
-// 深度优先搜索查找图中路径
+// DepthFirstPaths 深度优先搜索查找图中路径
 type DepthFirstPaths struct {
 	marked []bool
 	edgeTo []int
@@ -61,6 +61,7 @@ func (d *DepthFirstPaths) DFP(g Interface, s int) {
 	d.dfp(g, s)
 }
 
+// 13
 func (d *DepthFirstPaths) dfp(g Interface, v int) {
 	d.marked[v] = true
 	fmt.Println(d.edgeTo)
@@ -146,3 +147,5 @@ func (c *ConnectedComponent) getId(v int) int {
 func (c *ConnectedComponent) CCCount() int {
 	return c.count
 }
+
+// 使用深度优先搜索判断一课树自环的个数

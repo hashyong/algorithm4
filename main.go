@@ -1,7 +1,7 @@
 package main
 
 import (
-	msort "algorithm4/sort"
+	msort "github.com/hashyong/algorithm4/sort"
 )
 
 func main() {
@@ -15,4 +15,5 @@ func main() {
 	for _, s := range sortList {
 		msort.Sort(s)
 	}
+
 }

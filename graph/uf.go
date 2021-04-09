@@ -71,7 +71,6 @@ func (u *UF) Read(name string) {
 		fmt.Println(data.S, " ", data.E)
 	}
 	fmt.Println(u.count, " components")
-	return
 }
 
 func (u *UF) Count() int {
