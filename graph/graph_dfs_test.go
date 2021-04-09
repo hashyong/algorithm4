@@ -27,3 +27,10 @@ func TestDepthFirstPaths_DFP(t *testing.T) {
 
 	fmt.Println(g1.pathTo(4))
 }
+
+func TestConnectedComponent_CC(t *testing.T) {
+	g := New().GraphIn("tinyCG.json")
+	g1 := NewCC()
+	g1.CC(g)
+	assert.Equal(t, g1.CCCount(), 1)
+}

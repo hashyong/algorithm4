@@ -98,3 +98,51 @@ func (d *DepthFirstPaths) pathTo(v int) []int {
 		ret = append(ret, res.(int))
 	}
 }
+
+type ConnectedComponent struct {
+	marked []bool
+	id     []int
+	// 当前有几个连通分量
+	count int
+}
+
+func NewCC() *ConnectedComponent {
+	return &ConnectedComponent{}
+}
+
+func (c *ConnectedComponent) CC(g Interface) {
+	c.marked = make([]bool, g.V())
+	c.id = make([]int, g.V())
+
+	for s := 0; s < g.V(); s++ {
+		if !c.marked[s] {
+			c.dfs(g, s)
+			c.count++
+		}
+	}
+}
+
+func (c *ConnectedComponent) dfs(g Interface, s int) {
+	c.marked[s] = true
+	c.id[s] = c.count
+
+	lis := g.Adj(s)
+	for w := lis.Front(); w != nil; w = w.Next() {
+		idx := w.Value.(int)
+		if !c.marked[idx] {
+			c.dfs(g, idx)
+		}
+	}
+}
+
+func (c *ConnectedComponent) connected(v, w int) bool {
+	return c.id[v] == c.id[w]
+}
+
+func (c *ConnectedComponent) getId(v int) int {
+	return c.id[v]
+}
+
+func (c *ConnectedComponent) CCCount() int {
+	return c.count
+}
