@@ -2,11 +2,11 @@
 
 ## 代码
 1. [无向图](#无向图)
-
-- [Graph](graph.go)
-- [Graph_DFS](graph_dfs.go)
-- [Graph_BFS](graph_bfs.go)
-- [Graph_UF](uf.go)
+  - [深度优先搜索](graph.go)
+  - [寻找路径](graph_dfs.go)
+  - [广度优先搜索](graph_bfs.go)
+  - [连通分量](uf.go)
+  - [符号图](symbol.go)
 
 ## 无向图
 ### 定义

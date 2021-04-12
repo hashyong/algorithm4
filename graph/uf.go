@@ -38,7 +38,6 @@ func (u *UF) initWeight(n int) {
 		u.id[i] = i
 		u.sz[i] = 1
 	}
-
 }
 
 func (u *UF) Read(name string) {
