@@ -19,6 +19,8 @@ type Interface interface {
 	// 3 4
 	// ...
 	GraphIn(interface{}) Interface
+	// Reverse 对原图取反
+	Reverse() Interface
 	// V 顶点数
 	V() int
 	// E 边数
@@ -97,6 +99,17 @@ func (g *Graph) Graph(v int) Interface {
 	g.Edge = 0
 	g.adj = make([]list.List, v)
 	return g
+}
+
+func (g *Graph) Reverse() Interface {
+	g1 := NewDirect().Graph(g.V())
+	for v := 0; v < g.V(); v++ {
+		lis := g.Adj(v)
+		for i := lis.Front(); i != nil; i = i.Next() {
+			g1.AddEdge(i.Value.(int), v)
+		}
+	}
+	return g1
 }
 
 func (g *Graph) GraphIn(in interface{}) Interface {

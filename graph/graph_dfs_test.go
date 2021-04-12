@@ -62,3 +62,14 @@ func TestDepthFistOrder_Init(t *testing.T) {
 	g1.Init(g)
 	g1.display()
 }
+
+func TestKosarajuSCC_Init(t *testing.T) {
+	g := NewDirect().GraphIn("no_circle.json")
+	fmt.Println(toString(g))
+
+	g1 := NewKosarajuSCC()
+	g1.Init(g)
+
+	fmt.Println(g1.Count())
+	assert.Equal(t, g1.Count(), 3)
+}

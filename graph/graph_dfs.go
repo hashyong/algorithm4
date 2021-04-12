@@ -375,5 +375,82 @@ func (d *DepthFistOrder) display() {
 		fmt.Print(" ", tmp)
 	}
 	fmt.Println()
+}
 
+func (d *DepthFistOrder) reverse() []int {
+	var ret []int
+	for tmp := d.ReservePost.Pop(); tmp != nil; tmp = d.ReservePost.Pop() {
+		ret = append(ret, tmp.(int))
+	}
+	return ret
+}
+
+// KosarajuSCC(科萨拉朱算法)
+// 我来尝试描述下这个算法
+// 首先要计算一个有向图的强连通分量， 因为连通分量之间也有指向关系，
+// 假如先执行最后的那一个分量，即只指向自己的连通分量, 这样ok
+// 再执行指向此分量的连通分量， 因为最后一个分量已经被标记，索引此分量也能正常执行，没得问题， 依次类推即可
+// 但这个执行顺序要怎么被保证呢
+
+// 我们假设把强连通分量抽象为一个顶点, 则其拓扑排序就决定了其执行顺序，没有依赖的强连通分量其实是最后一个, 就是顶点指向的末尾
+// 此时我们希望末尾的元素先执行, 指向末尾的元素后执行， 依次类推 那要怎么办呢？
+// 哈哈哈哈哈哈哈哈哈，把图的顺序颠倒过来就行， 即对图取反，然后再按照 原图的拓扑排序执行就行（反图的强连通分量和原图是相同的）
+// 这样就很好理解啦
+// 正式描述下步骤
+// 1. 计算原图的拓扑排序U
+// 2. 将原图取反得到反图V
+// 3. 对V按照U的顺序进行DFS即可，每一轮DFS即是同一个强连通分量
+
+type KosarajuSCC struct {
+	marked []bool // 已经访问过的顶点
+	id     []int  // 强连通分量的标识符
+	count  int    // 强连通分量的个数
+}
+
+func NewKosarajuSCC() *KosarajuSCC {
+	return &KosarajuSCC{}
+}
+
+func (k *KosarajuSCC) Init(g Interface) {
+	k.marked = make([]bool, g.V())
+	k.id = make([]int, g.V())
+
+	g1 := NewDepthFirstOrder()
+	g1.Init(g)
+	u := g1.reverse()
+	fmt.Println(u)
+
+	v := g.Reverse()
+	for i := range u {
+		if !k.marked[i] {
+			k.dfs(v, i)
+			k.count++
+		}
+	}
+}
+
+func (k *KosarajuSCC) dfs(g Interface, v int) {
+	k.marked[v] = true
+	k.id[v] = k.count
+
+	lis := g.Adj(v)
+	for w := lis.Front(); w != nil; w = w.Next() {
+		idx, _ := w.Value.(int)
+		// 如果还没有标记过
+		if !k.marked[idx] {
+			k.dfs(g, idx)
+		}
+	}
+}
+
+func (k *KosarajuSCC) stronglyConnected(v, w int) bool {
+	return k.id[v] == k.id[w]
+}
+
+func (k *KosarajuSCC) ID(v int) int {
+	return k.id[v]
+}
+
+func (k *KosarajuSCC) Count() int {
+	return k.count
 }
