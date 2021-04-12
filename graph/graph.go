@@ -29,6 +29,7 @@ type Interface interface {
 	Adj(int) list.List
 }
 
+// Graph 同时支持有向图和无向图, 通过direct 字段区分即可
 type Graph struct {
 	// 顶点数目
 	Ver int
@@ -37,10 +38,17 @@ type Graph struct {
 	// 邻接表
 	// 目前是使用list，也可以使用set or st
 	adj []list.List
+	// 是否为有向图
+	direct bool
 }
 
 func New() Interface {
-	g := &Graph{}
+	g := &Graph{direct: false}
+	return g
+}
+
+func NewDirect() Interface {
+	g := &Graph{direct: true}
 	return g
 }
 
@@ -68,6 +76,12 @@ func (g *Graph) AddEdge(v int, w int) {
 		g.Edge++
 
 	}
+
+	// 如果是有向图,添加单边即可
+	if g.direct {
+		return
+	}
+
 	lis = &g.adj[w]
 	if !listSearch(lis, v) {
 		lis.PushBack(v)

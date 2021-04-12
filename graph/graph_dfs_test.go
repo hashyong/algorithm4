@@ -36,3 +36,20 @@ func TestConnectedComponent_CC(t *testing.T) {
 	fmt.Println(g1.connected(1, 2))
 	assert.Equal(t, g1.CCCount(), 1)
 }
+
+func TestCycle_HasCycle(t *testing.T) {
+	g := New().GraphIn("circle.json")
+	g1 := NewCycle()
+	g1.Init(g)
+
+	assert.Equal(t, g1.HasCycle(), true)
+}
+
+func TestDirectCycle_HasCircle(t *testing.T) {
+	g := NewDirect().GraphIn("circle.json")
+	fmt.Println(toString(g))
+
+	g1 := NewDirectCycle()
+	g1.Init(g)
+	assert.Equal(t, g1.HasCircle(), true)
+}
