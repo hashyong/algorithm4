@@ -3,6 +3,7 @@ package graph
 import (
 	"fmt"
 
+	"github.com/golang-collections/collections/queue"
 	"github.com/golang-collections/collections/stack"
 )
 
@@ -308,4 +309,65 @@ func (receiver *DirectCycle) dfs(g Interface, v int) {
 	}
 
 	receiver.OnStack[v] = false
+}
+
+// DepthFistOrder 优先级限制下的调度问题等价于计算有向无环图中的所有顶点的拓扑顺序
+type DepthFistOrder struct {
+	Marked []bool
+
+	// 所有顶点的前序遍历
+	Pre *queue.Queue
+	// 所有顶点的后序遍历
+	Post *queue.Queue
+	// 所有顶点的逆后序遍历
+	ReservePost *stack.Stack
+}
+
+func NewDepthFirstOrder() *DepthFistOrder {
+	return &DepthFistOrder{}
+}
+
+func (d *DepthFistOrder) Init(g Interface) {
+	d.Marked = make([]bool, g.V())
+	d.Pre = queue.New()
+	d.Post = queue.New()
+	d.ReservePost = stack.New()
+
+	for s := 0; s < g.V(); s++ {
+		if !d.Marked[s] {
+			d.dfs(g, s)
+		}
+	}
+}
+
+func (d *DepthFistOrder) dfs(g Interface, v int) {
+	d.Marked[v] = true
+	d.Pre.Enqueue(v)
+	lis := g.Adj(v)
+	for w := lis.Front(); w != nil; w = w.Next() {
+		idx, _ := w.Value.(int)
+		// 如果还没有标记过
+		if !d.Marked[idx] {
+			d.dfs(g, idx)
+		}
+	}
+	d.Post.Enqueue(v)
+	d.ReservePost.Push(v)
+}
+
+func (d *DepthFistOrder) display() {
+	fmt.Println("Pre display")
+	for tmp := d.Pre.Dequeue(); tmp != nil; tmp = d.Pre.Dequeue() {
+		fmt.Print(" ", tmp)
+	}
+	fmt.Println("\nPost display")
+	for tmp := d.Post.Dequeue(); tmp != nil; tmp = d.Post.Dequeue() {
+		fmt.Print(" ", tmp)
+	}
+	fmt.Println("\nReservePost display")
+	for tmp := d.ReservePost.Pop(); tmp != nil; tmp = d.ReservePost.Pop() {
+		fmt.Print(" ", tmp)
+	}
+	fmt.Println()
+
 }

@@ -53,3 +53,12 @@ func TestDirectCycle_HasCircle(t *testing.T) {
 	g1.Init(g)
 	assert.Equal(t, g1.HasCircle(), true)
 }
+
+func TestDepthFistOrder_Init(t *testing.T) {
+	g := NewDirect().GraphIn("no_circle.json")
+	fmt.Println(toString(g))
+
+	g1 := NewDepthFirstOrder()
+	g1.Init(g)
+	g1.display()
+}
