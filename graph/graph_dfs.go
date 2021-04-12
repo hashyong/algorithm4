@@ -312,6 +312,12 @@ func (receiver *DirectCycle) dfs(g Interface, v int) {
 }
 
 // DepthFistOrder 优先级限制下的调度问题等价于计算有向无环图中的所有顶点的拓扑顺序
+// 此方法是使用深度优先遍历的方法进行， 很古老也很简单
+// 使用队列的方法更加简单, 需要保存每个顶点的入度和出度
+// 遍历入度为0的节点， 将其加入队列
+//  出队，删去出队节点对应的边, 直至队列为空
+//  遍历入度为0的节点， 将其加入队列 循环
+// 直至所有节点都已经被出队即可
 type DepthFistOrder struct {
 	Marked []bool
 
