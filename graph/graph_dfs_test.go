@@ -71,5 +71,18 @@ func TestKosarajuSCC_Init(t *testing.T) {
 	g1.Init(g)
 
 	fmt.Println(g1.Count())
+	fmt.Println(g1.stronglyConnected(1, 3))
 	assert.Equal(t, g1.Count(), 3)
+
+}
+
+func TestTransitiveClosure_Init(t *testing.T) {
+	g := NewDirect().GraphIn("no_circle.json")
+	fmt.Println(toString(g))
+
+	g1 := NewTransitiveClosure().Init(g)
+
+	assert.Equal(t, g1.reachable(4, 2), true)
+	assert.Equal(t, g1.reachable(4, 5), false)
+
 }

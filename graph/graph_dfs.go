@@ -454,3 +454,27 @@ func (k *KosarajuSCC) ID(v int) int {
 func (k *KosarajuSCC) Count() int {
 	return k.count
 }
+
+// TransitiveClosure 顶点对的可达性 使用邻接矩阵来实现
+// 用小于平方的时间复杂度来实现还是个问题 待业界研究
+type TransitiveClosure struct {
+	all []*DepthFirstSearch
+}
+
+func NewTransitiveClosure() *TransitiveClosure {
+	return &TransitiveClosure{}
+}
+
+func (t *TransitiveClosure) Init(g Interface) *TransitiveClosure {
+	t.all = make([]*DepthFirstSearch, g.V())
+	for i := 0; i < g.V(); i++ {
+		t.all[i] = NewDFS()
+		t.all[i].DFS(g, i)
+	}
+
+	return t
+}
+
+func (t *TransitiveClosure) reachable(v, w int) bool {
+	return t.all[v].Marked(w)
+}
