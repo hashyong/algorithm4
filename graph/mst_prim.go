@@ -51,10 +51,21 @@ func (pq *PriorityQueue) Pop() interface{} {
 }
 
 // update modifies the priority and value of an Item in the queue.
-func (pq *PriorityQueue) update(item *Item, value string, priority float32) {
+func (pq *PriorityQueue) update(item *Item, value int, priority float32) {
 	item.value = value
 	item.priority = priority
 	heap.Fix(pq, item.index)
+}
+
+// contain.
+func (pq *PriorityQueue) contain(item int) (bool, *Item) {
+	for res := range *pq {
+		if (*pq)[res].value.(int) == item {
+			return true, (*pq)[res]
+		}
+	}
+
+	return false, nil
 }
 
 // LazyPrimMST 普里姆算法（Prim算法）
@@ -134,4 +145,58 @@ func (l *LazyPrimMST) weight() float32 {
 	}
 	fmt.Println(" sum = ", ret)
 	return ret
+}
+
+// PrimMST 最小生成树的 Prim 算法（即时版本）
+type PrimMST struct {
+	// 距离树最近的边
+	edgeTo []EdgeInterface
+	// 边得权重
+	distTo []float32
+	marked []bool
+	// 有效横切边 , 优先队列
+	pq *PriorityQueue
+}
+
+func (p *PrimMST) init(e EdgeWeightedGraphInterface) *PrimMST {
+	p.edgeTo = make([]EdgeInterface, e.V())
+	p.distTo = make([]float32, e.V())
+	p.marked = make([]bool, e.V())
+
+	p.pq = &PriorityQueue{}
+	heap.Init(p.pq)
+
+	p.distTo[0] = 0.0
+	heap.Push(p.pq, &Item{value: 0, priority: 0.0})
+
+	for p.pq.Len() != 0 {
+		p.visit(e, heap.Pop(p.pq).(*Item).value.(int))
+	}
+	return p
+}
+
+func (p *PrimMST) visit(e EdgeWeightedGraphInterface, value int) {
+	p.marked[value] = true
+
+	lis := e.Adj(value)
+	for i := lis.Front(); i != nil; i = i.Next() {
+		edge := i.Value.(EdgeInterface)
+		idx, _ := edge.other(value)
+		if p.marked[idx] {
+			continue
+		}
+
+		if edge.weight() < p.distTo[idx] {
+			p.edgeTo[idx] = edge
+			p.distTo[idx] = edge.weight()
+
+			// 如果当前pq 包含当前顶点，
+			ret, item := p.pq.contain(idx)
+			if ret {
+				p.pq.update(item, idx, p.distTo[idx])
+			} else {
+				heap.Push(p.pq, &Item{value: idx, priority: p.distTo[idx]})
+			}
+		}
+	}
 }
