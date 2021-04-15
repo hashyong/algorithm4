@@ -108,6 +108,7 @@
       - [强连通性](graph)
         - [拓扑排序](graph)
         - [Kosaraju算法](graph)
+        - [传递闭包](graph)
     - [最小生成树](graph)
       - [加权无向图](graph)
       - [Prim 算法](graph)
