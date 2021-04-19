@@ -30,6 +30,8 @@ type EdgeInterface interface {
 	compareTo(edgeInterface EdgeInterface) int
 	// 可视化输出
 	toString() string
+
+	// 兼容下有向图
 }
 
 // EdgeWeightedGraphInterface 加权无向图的API
