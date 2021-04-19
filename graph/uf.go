@@ -22,12 +22,14 @@ func NewUF() *UF {
 	return &UF{}
 }
 
-func (u *UF) init(n int) {
+func (u *UF) init(n int) *UF {
 	u.count = n
 	u.id = make([]int, n)
 	for i := 0; i < n; i++ {
 		u.id[i] = i
 	}
+
+	return u
 }
 
 func (u *UF) initWeight(n int) {

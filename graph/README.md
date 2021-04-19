@@ -23,6 +23,9 @@
 3. [最小生成树](#最小生成树)
   - [Edge](mst.go)
   - [EdgeWeightedGraph](mst.go)
+    -  [KruskalMST克鲁斯卡尔算法](mst_kruskal.go)
+       - 分为延时删除和及时删除俩版本
+    -  [Prim普里姆算法](mst_prim.go)
 
 ## 无向图
 ### 定义

@@ -183,6 +183,7 @@ func (e *EdgeWeightedGraph) Adj(v int) list.List {
 }
 
 // Edges 实现逻辑再议
+// 根据某个顶点出发 做下DFS即可
 func (e *EdgeWeightedGraph) Edges() list.List {
 	return e.adj[0]
 }
