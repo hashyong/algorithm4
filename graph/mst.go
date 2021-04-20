@@ -37,6 +37,7 @@ type EdgeInterface interface {
 }
 
 // EdgeWeightedGraphInterface 加权无向图的API
+// 也可以表示加权有向图
 type EdgeWeightedGraphInterface interface {
 	// Default  init
 	Default(int) EdgeWeightedGraphInterface
