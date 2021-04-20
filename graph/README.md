@@ -26,6 +26,21 @@
     -  [KruskalMST克鲁斯卡尔算法](mst_kruskal.go)
        - 分为延时删除和及时删除俩版本
     -  [Prim普里姆算法](mst_prim.go)
+  
+4. [最短路径](#最短路径)
+  - [Edge](mst.go)
+  - [EdgeWeightedGraph](mst.go)
+    - [Dijkstra 迪杰斯特拉算法](sp_dijkstra.go)
+      - 适用于加权有向图
+    - [基于拓扑排序relax](sp_dijkstra.go)
+      - 适用于无环加权有向图 
+    - [最长路径](sp_dijkstra.go)
+      - 适用于无环加权有向图, 将权重值取反， 找最小路径即可
+  - 实际问题(并行任务调度)
+    - 优先级限制下的并行任务调度, 在若干相同的处理器上（数量不限）安排任务并在最短的时间内完成所有任务？
+  
+    
+    
 
 ## 无向图
 ### 定义
