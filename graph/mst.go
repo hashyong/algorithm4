@@ -32,6 +32,8 @@ type EdgeInterface interface {
 	toString() string
 
 	// 兼容下有向图
+	from() int
+	to() int
 }
 
 // EdgeWeightedGraphInterface 加权无向图的API
@@ -74,6 +76,14 @@ func (e *Edge) weight() float32 {
 	return e.Weight
 }
 
+func (e *Edge) from() int {
+	return e.V
+}
+
+func (e *Edge) to() int {
+	return e.W
+}
+
 func (e *Edge) either() int {
 	return e.V
 }
@@ -107,6 +117,7 @@ func (e *Edge) toString() string {
 }
 
 // EdgeWeightedGraph 加权无向图
+// 当让 也可以表示加权有向图, 只是边不同罢了
 type EdgeWeightedGraph struct {
 	// 顶点的总数
 	v int
@@ -114,10 +125,19 @@ type EdgeWeightedGraph struct {
 	e int
 	// 邻接表
 	adj []list.List
+	// 是否为 有向图
+	// 有向图添加只添加一次即可
+	isDirected bool
 }
 
 func NewEWG() *EdgeWeightedGraph {
 	return &EdgeWeightedGraph{}
+}
+
+func NewDirectedEWG() *EdgeWeightedGraph {
+	return &EdgeWeightedGraph{
+		isDirected: true,
+	}
 }
 
 func (e *EdgeWeightedGraph) Default(v int) EdgeWeightedGraphInterface {
@@ -174,9 +194,14 @@ func (e *EdgeWeightedGraph) E() int {
 
 func (e *EdgeWeightedGraph) AddEdge(edgeInterface EdgeInterface) {
 	v := edgeInterface.either()
-	w, _ := edgeInterface.other(v)
 	e.adj[v].PushBack(edgeInterface)
-	e.adj[w].PushBack(edgeInterface)
+
+	// 如果是无向图 边需要添加两次
+	if !e.isDirected {
+		w, _ := edgeInterface.other(v)
+		e.adj[w].PushBack(edgeInterface)
+	}
+
 	e.e++
 }
 
