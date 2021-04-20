@@ -136,3 +136,40 @@ func (d *DijkstraAllPairsSP) path(v, w int) {
 func (d *DijkstraAllPairsSP) dist(v, w int) float32 {
 	return d.all[v].distTo[w]
 }
+
+// 命题 S。按照拓扑顺序放松顶点，就能在和 E+V 成正比的时间内解决无环加权有向图的单点最
+// 短路径问题。
+// 证明。每条边 v → w 都只会被放松一次。当 v 被放松时，得到：distTo[w]<= distTo[v]+e.
+// weight()。在算法结束前该不等式都成立，因为 distTo[v] 是不会变化的（因为是按照拓扑
+// 顺序放松顶点，在 v 被放松之后算法不会再处理任何指向 v 的边）而 distTo[w] 只会变小（任
+// 何放松操作都只会减小 distTo[] 中的元素的值）。因此，在所有从 s 可达的顶点都被加入到
+// 树中后，最短路径的最优性条件成立，命题 Q 也就成立了。时间上限很容易得到：命题 G 告诉
+// 我们拓扑排序所需的时间与 E+V 成正比，而在第二次遍历中每条边都只会被放松一次，因此算
+// 法总耗时与 E+V 成正比。
+
+// AcyclicSP 说人话就是说 distTo[w] > distTo[v]+e.weight() 时相当于找到更短的路径， 需要更新
+// 那假如我按照特定顺序遍历， 保证当前  distTo[w] <= distTo[v]+e.weight() 成立即可， 那就一次遍历完事， 线性实践解决
+// 1. 因为 distTo[v] 是不会变化的（因为是按照拓扑顺序放松顶点，在 v 被放松之后算法不会再处理任何指向 v 的边
+// 2. 而 distTo[w] 只会变小（任何放松操作都只会减小 distTo[] 中的元素的值
+// 因此，在所有从 s 可达的顶点都被加入到 树中后，最短路径的最优性条件成立, 命题 Q 也就成立了
+type AcyclicSP struct {
+	// 指向对应顶点的边
+	edgeTo []EdgeInterface
+	// 对应顶点距离起点的距离
+	distTo []float32
+}
+
+func (a *AcyclicSP) init(e EdgeWeightedGraphInterface, v int) *AcyclicSP {
+	// init
+	a.edgeTo = make([]EdgeInterface, e.V())
+	a.distTo = make([]float32, e.V())
+
+	// dist default
+	for i := 0; i < len(a.distTo); i++ {
+		a.distTo[i] = FLOATMAX
+	}
+	a.distTo[v] = 0.0
+
+	// 取g的拓扑排序, 遍历 然后挨个relax即可
+	return a
+}
