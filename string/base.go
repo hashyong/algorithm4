@@ -1,15 +1,37 @@
 package string
 
 // Alphabet 字母表
-type Alphabet struct{}
+type Alphabet struct {
+	// the characters in the alphabet
+	alphabet []byte
+	// indices
+	inverse []int
+	// the radix of the alphabet
+	r int
+}
 
-func NewAlphabet() *Alphabet {
-	return &Alphabet{}
+func NewAlphabet(t string) *Alphabet {
+	ret := &Alphabet{}
+	param := ""
+	switch t {
+	case "bin":
+		param = "01"
+	case "oct":
+		param = "01234567"
+	case "dec":
+		param = "0123456789"
+	default:
+		return ret
+	}
+
+	return ret.Alphabet(param)
 }
 
 // Alphabet 根据s的中字符常见一张新的字母表
-func (a *Alphabet) Alphabet(s string) {
+// Initializes a new alphabet from the given set of characters
+func (a *Alphabet) Alphabet(s string) *Alphabet {
 
+	return a
 }
 
 // 获取字母表中索引位置的字符
