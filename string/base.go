@@ -1,5 +1,7 @@
 package string
 
+import "errors"
+
 // Alphabet 字母表
 type Alphabet struct {
 	// the characters in the alphabet
@@ -10,7 +12,7 @@ type Alphabet struct {
 	r int
 }
 
-func NewAlphabet(t string) *Alphabet {
+func NewAlphabet(t string) (*Alphabet, error) {
 	ret := &Alphabet{}
 	param := ""
 	switch t {
@@ -21,7 +23,7 @@ func NewAlphabet(t string) *Alphabet {
 	case "dec":
 		param = "0123456789"
 	default:
-		return ret
+		return ret, errors.New("default")
 	}
 
 	return ret.Alphabet(param)
@@ -29,9 +31,29 @@ func NewAlphabet(t string) *Alphabet {
 
 // Alphabet 根据s的中字符常见一张新的字母表
 // Initializes a new alphabet from the given set of characters
-func (a *Alphabet) Alphabet(s string) *Alphabet {
+func (a *Alphabet) Alphabet(alpha string) (*Alphabet, error) {
+	// check that alphabet contains no duplicate chars
+	unicode := make(map[byte]bool, 65535)
+	for i := 0; i < len(alpha); i++ {
+		if unicode[alpha[i]] {
+			return a, errors.New("repeat")
+		}
+		unicode[alpha[i]] = true
+	}
 
-	return a
+	a.alphabet = []byte(alpha)
+	a.r = len(alpha)
+	a.inverse = make([]int, 65535)
+	//inverse = new int[Character.MAX_VALUE];
+	//for (int i = 0; i < inverse.length; i++)
+	//inverse[i] = -1;
+	//
+	//// can't use char since R can be as big as 65,536
+	//for (int c = 0; c < R; c++)
+	//inverse[alphabet[c]] = c;
+	//
+
+	return a, nil
 }
 
 // 获取字母表中索引位置的字符
